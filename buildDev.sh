@@ -16,5 +16,8 @@ nvm use 18
 # Executa o Docker Compose
 docker-compose up -d
 
-# Roda npm install
+# Instala as dependencias do composer
+docker-compose exec app composer install
+
+# Instala as dependencias do node
 npm install
