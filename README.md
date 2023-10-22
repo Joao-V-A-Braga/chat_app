@@ -1,7 +1,7 @@
 # Chat APP
 
 ## Descrição
-Esse é um projeto criado para praticar o franmework Laravel e o desenvolvimento web no geral.
+Esse é um projeto criado para praticar o framework Laravel e o desenvolvimento web no geral.
 
 O objetivo e criar uma aplicação web em que os usuário possam utiliza-la para se comunicarem por meio de mensagens, imagens, videos e arquivos. Quem sabe futuramente possa ser implementado também uma comunicação por audio e video-chamadas.
 
