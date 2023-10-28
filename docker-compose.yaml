@@ -8,6 +8,7 @@ services:
     volumes:
       - ./:/var/www/app
       - ./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini
+      - ./uploads:/var/www/app/uploads
     networks:
       - laravel_network
 

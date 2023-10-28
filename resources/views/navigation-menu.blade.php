@@ -12,9 +12,56 @@
 
                 <!-- Navigation Links -->
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link href="{{ route('chats') }}" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                    <x-nav-link href="{{ route('chats') }}" :active="request()->routeIs('chats')">
+                        {{ __('Chat') }}
                     </x-nav-link>
+
+                    @if(isset($invitations) or request()->routeIs('chats'))
+                        <div class="inline-flex items-center px-1 pt-4 text-sm font-medium leading-5 text-gray-900">
+                            <div class="dropdown" style="width: 300px">
+                                <button class="position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Convites
+                                    @if(isset($invitations) and count($invitations))
+                                        <span class="position-absolute top-0 start-120 translate-middle badge rounded-pill" style="background-color: rgb(104 117 245)">
+                                            {{isset($invitations) ? count($invitations) : 0}}
+                                        </span>
+                                    @endif
+                                    <br>
+                                    <i class="fa-solid fa-caret-down"></i>
+                                </button>
+                                <ul class="dropdown-menu overflow-hidden">
+                                    @isset($invitations)
+                                        @foreach($invitations as $invitation)
+                                            <div class="d-flex dropdown-item-text align-items-center">
+                                                <img class="h-8 w-8 rounded-full object-cover" src="
+                                            @if ($invitation->senderUser()->first()->profile_photo_path)
+                                                {{ route('image.show_profile', ['user' => $invitation->senderUser()->first()]) }}
+                                            @else
+                                                {{ $invitation->senderUser()->first()->profile_photo_url }}
+                                            @endif
+                                            " alt="{{ $invitation->senderUser()->first()->name }}" />
+                                                <p class="ml-2 lh-sm" style="font-size: 0.8em">
+                                                    <strong>{{$invitation->senderUser()->first()->name}}</strong> te convidou para conversar.
+                                                </p>
+                                                <a
+                                                    title="Aceitar" class="ml-2 h6 btn btn-outline-success"
+                                                    onclick="replyInvitation('{{route('chat_invitation.accept', ['chatInvitation' => $invitation->id])}}')"
+                                                >
+                                                    <i class="fa-solid fa-check"></i>
+                                                </a>
+                                                <a
+                                                    href="#" title="Regeitar" class="mx-2 h6 btn btn-outline-danger"
+                                                    onclick="replyInvitation('{{route('chat_invitation.refuse', ['chatInvitation' => $invitation->id])}}')"
+                                                >
+                                                    <i class="fa-solid fa-x"></i>
+                                                </a>
+                                            </div>
+                                        @endforeach
+                                    @endif
+                                </ul>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 
@@ -77,7 +124,13 @@
                         <x-slot name="trigger">
                             @if (Laravel\Jetstream\Jetstream::managesProfilePhotos())
                                 <button class="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition">
-                                    <img class="h-8 w-8 rounded-full object-cover" src="{{ Auth::user()->profile_photo_url }}" alt="{{ Auth::user()->name }}" />
+                                    <img class="h-8 w-8 rounded-full object-cover" src="
+                                    @if (Auth::user()->profile_photo_path)
+                                        {{ route('image.show_profile', ['user' => Auth::user()]) }}
+                                    @else
+                                        {{ Auth::user()->profile_photo_url }}
+                                    @endif
+                                    " alt="{{ Auth::user()->name }}" />
                                 </button>
                             @else
                                 <span class="inline-flex rounded-md">

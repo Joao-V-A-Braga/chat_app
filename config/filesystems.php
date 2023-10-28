@@ -55,7 +55,10 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-
+        'profile_photo_disk' => [
+            'driver' => 'local',
+            'root' => storage_path('../uploads/images/'),
+        ],
     ],
 
     /*

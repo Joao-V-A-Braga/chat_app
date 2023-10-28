@@ -111,7 +111,7 @@ return [
     |
     | By default, Fortify will throttle logins to five requests per minute for
     | every email and IP address combination. However, if you would like to
-    | specify a custom rate limiter to call then you may specify it here.
+    | specify a app rate limiter to call then you may specify it here.
     |
     */
 
@@ -127,7 +127,7 @@ return [
     |
     | Here you may specify if the routes returning views should be disabled as
     | you may not need them when building your own application. This may be
-    | especially true if you're writing a custom single-page application.
+    | especially true if you're writing a app single-page application.
     |
     */
 

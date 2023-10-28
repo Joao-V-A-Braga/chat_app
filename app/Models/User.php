@@ -64,4 +64,19 @@ class User extends Authenticatable
     {
         return $this->hasMany(ConfigurationsUser::class);
     }
+
+    public function usersChats()
+    {
+        return $this->belongsTo(UsersChats::class);
+    }
+
+    public function sendedInvitations()
+    {
+        return $this->hasMany(ChatInvitation::class, 'sender');
+    }
+
+    public function receivedInvitations()
+    {
+        return $this->hasMany(ChatInvitation::class, 'destiny');
+    }
 }
