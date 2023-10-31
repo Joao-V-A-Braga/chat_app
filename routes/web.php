@@ -6,6 +6,8 @@ use App\Http\Controllers\ChatController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ChatInvitationController;
 use \App\Http\Controllers\UserController;
+use \App\Http\Controllers\MessageController;
+use \Illuminate\Http\RedirectResponse;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +23,7 @@ use \App\Http\Controllers\UserController;
 // Welcome
 Route::get('/', function () {
     if (Auth::user())
-        return http_redirect(\route('chats'));
+        return new RedirectResponse(route('chats'));
     return view('welcome');
 });
 
@@ -47,3 +49,7 @@ Route::post('/chat-invitation/refuse/{chatInvitation}', [ChatInvitationControlle
 
 // Users
 Route::get('/users-select2', [UserController::class, 'select2'])->name('user.select2');
+
+// Messages
+Route::post('/message/{chat}', [MessageController::class, 'new'])->name('message.new');
+Route::get('/message/{chat}', [MessageController::class, 'list'])->name('message.list');

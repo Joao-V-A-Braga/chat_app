@@ -34,6 +34,9 @@ RUN chmod g+s -R  /var/www/app
 # Change current user to www
 USER www
 
+# Exponhe a porta 8002 para o websocket
+EXPOSE 8002
+
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]

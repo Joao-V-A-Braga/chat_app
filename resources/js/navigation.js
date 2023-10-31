@@ -1,4 +1,4 @@
-window.replyInvitation = function acceptInvitation(url) {
+window.replyInvitation = function replyInvitation(url) {
     const axiosConfig = {
         method: 'post',
         url

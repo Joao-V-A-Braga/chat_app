@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Broadcast;
-
+use \App\Models\UsersChats;
 /*
 |--------------------------------------------------------------------------
 | Broadcast Channels
@@ -15,4 +15,10 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('message_to_chat.{id}', function ($user, $id) {
+    $userChat = UsersChats::where('user_id', $user->id)->where('chat_id', $id)->first();
+
+    return (int) $userChat->user_id === (int) $user->id;
 });

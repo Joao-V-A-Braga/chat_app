@@ -26,3 +26,15 @@ Depois disso, já terá os containers do docker rodando e as dependências insta
 
 ### Se já tiver buildado a aplicação anteriormente e quiser startar novamente, terá que rodar:
 `docker-compose up -d && npm run dev`
+### Em outro terminal temos que iniciar o Laravel websockets na porta `8002` com o comando `docker-compose exec app php artisan websockets:serve --host=0.0.0.0 --port=8002` 
+
+## Atenção!!!
+### Se você não quiser rodar seu Laravel websockets na porta `8002`
+Terá que configurar a exposição da mesma no Dockerfile do app e na configuração do NGINX
+
+### E se quiser utilizar outra porta na config do seu PUSHER_PORT no .env, a não ser a 6001
+Terá que mudar essa configuração no NGINX e no container NGINX no docker-compose.yml.
+
+
+## Depois disso é para o seu app de chat estar funcionando localmente. <3 
+### Até mais!!

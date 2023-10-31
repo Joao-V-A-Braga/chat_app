@@ -22,21 +22,28 @@
             </a>
         </div>
         <div class="d-flex flex-column h-100 rounded-1" style="background: rgba(185,185,185,0.3)">
-            <div class="h-100 pt-3">
-                <div class="d-flex mx-4">
-                    <p class="bg-white rounded border border-gray-200 p-2">
-                        Mensagem deles
-                    </p>
-                </div>
+            <div class="h-100 pt-3" id="messages-container">
+{{--                Layout exemplo--}}
+{{--                <div class="d-flex mx-4">--}}
+{{--                    <p class="bg-white rounded border border-gray-200 p-2">--}}
+{{--                        Mensagem deles--}}
+{{--                    </p>--}}
+{{--                </div>--}}
 
-                <div class="d-flex justify-content-end mx-4">
-                    <p class="rounded border border-gray-200 p-2 text-white" style="background: rgba(70,27,122,0.53)">
-                        Mensagem minha
-                    </p>
-                </div>
+{{--                <div class="d-flex justify-content-end mx-4">--}}
+{{--                    <p class="rounded border border-gray-200 p-2 text-white" style="background: rgba(70,27,122,0.53)">--}}
+{{--                        Mensagem minha--}}
+{{--                    </p>--}}
+{{--                </div>--}}
             </div>
 
-            <input class="rounded border-gray-200 mx-5 mb-3" style="height: 60px" placeholder="Escreva uma mensagem">
+            <form id="message-form" class="d-flex w-100" onsubmit="return false;">
+                @csrf
+                <input
+                    type="text" id="message-text" name="text" class="rounded border-gray-200 mx-5 mb-3 w-100"
+                    style="height: 60px" placeholder="Escreva uma mensagem"
+                >
+            </form>
         </div>
     @else
         <div class="d-flex flex-column justify-content-center align-items-center h-100 text-center  text-muted">
@@ -48,3 +55,16 @@
         </div>
     @endif
 </div>
+
+<script type="text/javascript">
+    @if($chat)
+        $(document).ready(function () {
+            getMessages('{{route('message.list', ['chat' => $chat->chat_id])}}', {{auth()->user()->id}}, {{$chat->chat_id}});
+        });
+
+        document.getElementById('message-form').addEventListener('submit', function (e) {
+            e.preventDefault()
+            sendMessage('{{route('message.new', ['chat' => $chat->chat_id])}}')
+        })
+    @endif
+</script>
