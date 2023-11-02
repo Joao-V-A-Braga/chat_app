@@ -1,0 +1,27 @@
+body {
+    font-family: 'figtree', sans-serif;
+    background-color: #f3f3f3;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+}
+h1 {
+    font-size: 2.5em;
+    color: #333;
+}
+p {
+    font-size: 1.2em;
+    color: #555;
+}
+a {
+    text-decoration: none;
+    color: #007BFF;
+}
+a:hover {
+    text-decoration: underline;
+}
