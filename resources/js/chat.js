@@ -1,13 +1,13 @@
 window.listenAcceptInvitations = ($user_id) => {
-    Echo.private(`accept_chat.${$user_id}`).listen('.AcceptInvitation', userChat => {
-        addChat(userChat.userChat, userChat.user, userChat.message)
+    Echo.private(`accept_chat.${$user_id}`).listen('.AcceptInvitation', data => {
+        addChat(data.userChat, data.user, data.message, data.destinyUserChat)
     })
 }
 
-function addChat(userChat, user, message) {
+function addChat(userChat, user, message, destinyUserChat) {
     const chat = $(`
         <a
-            class="d-flex align-items-center p-3 border-y" href="/chats?selected=${userChat.chat_id}"
+            class="d-flex align-items-center p-3 border-y" href="/chats?selected=${destinyUserChat.id}"
             style=""
         >
             <img class="h-8 w-8 rounded-full object-cover" src="

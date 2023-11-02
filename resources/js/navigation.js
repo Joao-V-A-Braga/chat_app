@@ -46,7 +46,7 @@ function addInvitation(invitationObj) {
         .attr('title', 'Aceitar')
         .addClass('ml-2 h6 btn btn-outline-success')
         .click(function() {
-            replyInvitation('http://localhost:8080/chat-invitation/accept/' + invitation.id);
+            replyInvitation('http://localhost:8080/chat-invitation/accept/' + invitation.id, this);
         })
         .append($('<i>').addClass('fa-solid fa-check'));
 
@@ -54,7 +54,7 @@ function addInvitation(invitationObj) {
         .attr('title', 'Rejeitar')
         .addClass('mx-2 h6 btn btn-outline-danger')
         .click(function() {
-            replyInvitation('http://localhost:8080/chat-invitation/refuse/' + invitation.id);
+            replyInvitation('http://localhost:8080/chat-invitation/refuse/' + invitation.id, this);
         })
         .append($('<i>').addClass('fa-solid fa-x'));
 

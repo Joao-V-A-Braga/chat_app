@@ -20,7 +20,7 @@ class AcceptInvitation implements ShouldBroadcast
     private $userChat;
 
     /**
-     * @var User $destiny
+     * @var UsersChats $destiny
      */
     private $destiny;
 
@@ -32,7 +32,7 @@ class AcceptInvitation implements ShouldBroadcast
     /**
      * Create a new event instance.
      */
-    public function __construct(UsersChats $userChat, User $destiny, string $message)
+    public function __construct(UsersChats $userChat, UsersChats $destiny, string $message)
     {
         $this->userChat = $userChat;
         $this->destiny = $destiny;
@@ -60,8 +60,9 @@ class AcceptInvitation implements ShouldBroadcast
     {
         return [
             'userChat' => $this->userChat,
-            'user' => $this->destiny,
-            'message' => $this->message
+            'user' => $this->destiny->user()->first(),
+            'message' => $this->message,
+            'destinyUserChat' => $this->destiny
         ];
     }
 }

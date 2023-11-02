@@ -46,8 +46,8 @@ class ChatInvitationController extends Controller
         $senderUserChat = $this->newUserChat($sender, $chat);
         $chatInvitation->save();
 
-        Event::dispatch(new AcceptInvitation($senderUserChat, $destiny, "Aceitou o seu convite!!"));
-        Event::dispatch(new AcceptInvitation($destinyUserChat, $sender, "Você aceitou o convite."));
+        Event::dispatch(new AcceptInvitation($senderUserChat, $destinyUserChat, "Aceitou o seu convite!!"));
+        Event::dispatch(new AcceptInvitation($destinyUserChat, $senderUserChat, "Você aceitou o convite."));
 
         return response()->json('Convite aceito com sucesso.', 200);
     }

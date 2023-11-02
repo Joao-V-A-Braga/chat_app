@@ -11,7 +11,7 @@
             @foreach($chats as $chat)
                 <a
                     class="d-flex align-items-center p-3 border-y" href="{{route('chats', ['selected' => $chat])}}"
-                    style="@if($selected->id == $chat->id) background-color: rgb(0,0,0, 0.1) @endif"
+                    style="@if($selected?->id == $chat?->id) background-color: rgb(0,0,0, 0.1) @endif"
                 >
                     {{-- Foto do chat/contato atual --}}
                     <img class="h-8 w-8 rounded-full object-cover" src="
