@@ -28,6 +28,9 @@ Depois disso, já terá os containers do docker rodando e as dependências insta
 `docker-compose up -d && npm run dev`
 ### Em outro terminal temos que iniciar o Laravel websockets na porta `8002` com o comando `docker-compose exec app php artisan websockets:serve --host=0.0.0.0 --port=8002` 
 
+### Ah, não se esqueça de rodar suas migrations
+`docker-compose exec app php artisan migrate`
+
 ## Atenção!!!
 ### Se você não quiser rodar seu Laravel websockets na porta `8002`
 Terá que configurar a exposição da mesma no Dockerfile do app e na configuração do NGINX
