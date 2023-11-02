@@ -20,6 +20,23 @@
 </div>
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
+    function formatOption(option) {
+        console.log(option)
+        if (!option.id) {
+            return option.text; // Mostrar a opção padrão (texto de placeholder)
+        }
+
+        var $option = $(
+            `<div class="d-flex align-items-center">
+                <img class="h-8 w-8 rounded-full object-cover"
+                     src=${option.profile_photo_path ? "/image-profile/" + option.id : option.profile_photo_url}>
+                <span class="ml-3"> ${option.name} </span>
+            </div>`
+        );
+
+        return $option;
+    }
+
     $(document).ready(function() {
         $('#selectOptions').select2({
             placeholder: "Busque por um usuário",
@@ -35,7 +52,8 @@
                     }
                 },
                 cache: true
-            }
+            },
+            templateResult: formatOption
         })
 
         $(".openInvitationModal").click(function() {

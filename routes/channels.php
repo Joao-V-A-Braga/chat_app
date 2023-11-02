@@ -22,3 +22,11 @@ Broadcast::channel('message_to_chat.{id}', function ($user, $id) {
 
     return (int) $userChat->user_id === (int) $user->id;
 });
+
+Broadcast::channel('send_invitation_to.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('accept_chat.{id}', function ($user, $id) {
+    return (int) $user->id === (int) $id;
+});

@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\Invitation\AcceptInvitation;
+use App\Events\Invitation\SendInvitation;
 use App\Models\Chat;
 use App\Models\ChatInvitation;
 use App\Models\User;
 use App\Models\UsersChats;
 use App\Models\UsersChatsConfiguration;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Event;
 
 class ChatInvitationController extends Controller
 {
@@ -28,17 +31,23 @@ class ChatInvitationController extends Controller
         $chatInvitation->sender = auth()->user()->id;
         $chatInvitation->destiny = $user->id;
         $chatInvitation->save();
-
+        Event::dispatch(new SendInvitation($chatInvitation));
         return response()->json('Convite enviado com sucesso.', 200);
     }
 
     public function acceptInvitation(ChatInvitation $chatInvitation)
     {
+        $destiny = $chatInvitation->destinyUser()->first();
+        $sender = $chatInvitation->senderUser()->first();
+
         $chatInvitation->active = false;
         $chat = $chatInvitation->chat()->first();
-        $this->newUserChat($chatInvitation->destinyUser()->first(), $chat);
-        $this->newUserChat($chatInvitation->senderUser()->first(), $chat);
+        $destinyUserChat = $this->newUserChat($destiny, $chat);
+        $senderUserChat = $this->newUserChat($sender, $chat);
         $chatInvitation->save();
+
+        Event::dispatch(new AcceptInvitation($senderUserChat, $destiny, "Aceitou o seu convite!!"));
+        Event::dispatch(new AcceptInvitation($destinyUserChat, $sender, "Você aceitou o convite."));
 
         return response()->json('Convite aceito com sucesso.', 200);
     }
@@ -62,5 +71,7 @@ class ChatInvitationController extends Controller
 
         $userChat->users_chats_configuration_id = $userChatConfiguration->id;
         $userChat->save();
+
+        return $userChat;
     }
 }

@@ -19,39 +19,39 @@
                     @if(isset($invitations) or request()->routeIs('chats'))
                         <div class="inline-flex items-center px-1 pt-4 text-sm font-medium leading-5 text-gray-900">
                             <div class="dropdown" style="width: 300px">
-                                <button class="position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button id="buttonInvitations" class="position-relative" type="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">
                                     Convites
-                                    @if(isset($invitations) and count($invitations))
-                                        <span class="position-absolute top-0 start-120 translate-middle badge rounded-pill" style="background-color: rgb(104 117 245)">
-                                            {{isset($invitations) ? count($invitations) : 0}}
-                                        </span>
-                                    @endif
+
+                                    <span id="qttInvitations" class="position-absolute top-0 start-120 translate-middle badge rounded-pill @if(!isset($invitations) or !count($invitations)) hidden @endif" style="background-color: rgb(104 117 245)">
+                                        {{isset($invitations) ? count($invitations) : 0}}
+                                    </span>
+
                                     <br>
                                     <i class="fa-solid fa-caret-down"></i>
                                 </button>
-                                <ul class="dropdown-menu overflow-hidden">
+                                <ul class="dropdown-menu overflow-hidden" id="invitationsList">
                                     @isset($invitations)
                                         @foreach($invitations as $invitation)
                                             <div class="d-flex dropdown-item-text align-items-center">
                                                 <img class="h-8 w-8 rounded-full object-cover" src="
-                                            @if ($invitation->senderUser()->first()->profile_photo_path)
-                                                {{ route('image.show_profile', ['user' => $invitation->senderUser()->first()]) }}
-                                            @else
-                                                {{ $invitation->senderUser()->first()->profile_photo_url }}
-                                            @endif
-                                            " alt="{{ $invitation->senderUser()->first()->name }}" />
+                                                    @if ($invitation->senderUser()->first()->profile_photo_path)
+                                                        {{ route('image.show_profile', ['user' => $invitation->senderUser()->first()]) }}
+                                                    @else
+                                                        {{ $invitation->senderUser()->first()->profile_photo_url }}
+                                                    @endif
+                                                " alt="{{ $invitation->senderUser()->first()->name }}" />
                                                 <p class="ml-2 lh-sm" style="font-size: 0.8em">
                                                     <strong>{{$invitation->senderUser()->first()->name}}</strong> te convidou para conversar.
                                                 </p>
                                                 <a
                                                     title="Aceitar" class="ml-2 h6 btn btn-outline-success"
-                                                    onclick="replyInvitation('{{route('chat_invitation.accept', ['chatInvitation' => $invitation->id])}}')"
+                                                    onclick="replyInvitation('{{route('chat_invitation.accept', ['chatInvitation' => $invitation->id])}}', this)"
                                                 >
                                                     <i class="fa-solid fa-check"></i>
                                                 </a>
                                                 <a
-                                                    href="#" title="Regeitar" class="mx-2 h6 btn btn-outline-danger"
-                                                    onclick="replyInvitation('{{route('chat_invitation.refuse', ['chatInvitation' => $invitation->id])}}')"
+                                                    title="Regeitar" class="mx-2 h6 btn btn-outline-danger"
+                                                    onclick="replyInvitation('{{route('chat_invitation.refuse', ['chatInvitation' => $invitation->id])}}', this)"
                                                 >
                                                     <i class="fa-solid fa-x"></i>
                                                 </a>
@@ -270,3 +270,10 @@
         </div>
     </div>
 </nav>
+@if(Auth::user())
+    <script type="text/javascript">
+        $(document).ready(function () {
+            listenSendInvitations({{Auth::user()->id}});
+        });
+    </script>
+@endif

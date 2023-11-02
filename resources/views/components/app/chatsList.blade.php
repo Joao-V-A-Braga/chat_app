@@ -6,7 +6,7 @@
         </a>
         <x-app.modalInvitation></x-app.modalInvitation>
     </div>
-    <div class="h-100">
+    <div class="h-100" id="chatList">
         @if($chats->first())
             @foreach($chats as $chat)
                 <a
@@ -41,3 +41,9 @@
         @endif
     </div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        listenAcceptInvitations({{Auth::user()->id}});
+    });
+</script>

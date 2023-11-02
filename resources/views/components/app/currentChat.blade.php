@@ -23,18 +23,6 @@
         </div>
         <div class="d-flex flex-column h-100 rounded-1" style="background: rgba(185,185,185,0.3)">
             <div class="h-100 pt-3" id="messages-container">
-{{--                Layout exemplo--}}
-{{--                <div class="d-flex mx-4">--}}
-{{--                    <p class="bg-white rounded border border-gray-200 p-2">--}}
-{{--                        Mensagem deles--}}
-{{--                    </p>--}}
-{{--                </div>--}}
-
-{{--                <div class="d-flex justify-content-end mx-4">--}}
-{{--                    <p class="rounded border border-gray-200 p-2 text-white" style="background: rgba(70,27,122,0.53)">--}}
-{{--                        Mensagem minha--}}
-{{--                    </p>--}}
-{{--                </div>--}}
             </div>
 
             <form id="message-form" class="d-flex w-100" onsubmit="return false;">
