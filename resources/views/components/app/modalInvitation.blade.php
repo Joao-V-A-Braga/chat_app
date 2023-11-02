@@ -1,3 +1,10 @@
+<style>
+    .select2-container .select2-selection--single {
+        height: 100%!important;
+        padding: 4px;
+    }
+</style>
+
 <div class="modal" id="sendInvitationModal">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -21,13 +28,12 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <script>
     function formatOption(option) {
-        console.log(option)
         if (!option.id) {
             return option.text; // Mostrar a opção padrão (texto de placeholder)
         }
 
         var $option = $(
-            `<div class="d-flex align-items-center">
+            `<div class="d-flex align-items-center ${option.selected ? 'selected' : ''}">
                 <img class="h-8 w-8 rounded-full object-cover"
                      src=${option.profile_photo_path ? "/image-profile/" + option.id : option.profile_photo_url}>
                 <span class="ml-3"> ${option.name} </span>
@@ -35,6 +41,19 @@
         );
 
         return $option;
+    }
+
+    function formatSelection(option) {
+        if(option.name) {
+            return $(
+                `<div class="d-flex align-items-center ${option.selected ? 'selected' : ''}">
+                <img class="h-8 w-8 rounded-full object-cover"
+                     src=${option.profile_photo_path ? "/image-profile/" + option.id : option.profile_photo_url}>
+                <span class="ml-3"> ${option.name} </span>
+            </div>`
+            );
+        }
+        return option.text
     }
 
     $(document).ready(function() {
@@ -53,7 +72,8 @@
                 },
                 cache: true
             },
-            templateResult: formatOption
+            templateResult: formatOption,
+            templateSelection: formatSelection
         })
 
         $(".openInvitationModal").click(function() {
