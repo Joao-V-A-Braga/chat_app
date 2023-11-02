@@ -3,27 +3,21 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
         <title>Chat App</title>
-
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css?family=figtree:400,600&display=swap" rel="stylesheet" />
 
         <!-- Styles -->
-        <style>
-
-        </style>
+        @vite(['resources/css/welcome.css'])
     </head>
-    <body class="h5">
-        <h1>Seja bem vindo!</h1>
-        <p>
-            Esse projeto tem como intuito facilitar a sua comunicação com outras pessoas.
-            <a href="/register">
-                <strong>registre-se</strong>
-            </a> ou
-            <a href="/login">
-                <strong>faça o seu login</strong>
-            </a>
-        </p>
+    <body>
+        <div class="container">
+            <h1>Bem-vindo ao Chat App!</h1>
+            <p>
+                Este projeto foi criado para tornar a comunicação mais simples e eficaz. Se você ainda não possui uma conta, por favor,
+                <a href="/register"><strong>registre-se</strong></a>. Caso já seja um membro, faça o seu
+                <a href="/login"><strong>login</strong></a>.
+            </p>
+        </div>
     </body>
 </html>
